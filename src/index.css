@@ -1,1 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&display=swap');
+
 @import "tailwindcss";
+
+.logoSwiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+@theme {
+  --color-LightGray: #f0f0f0;
+  --color-secondary: #F59E0B;
+  --color-black1: #000000;
+  --color-white1: #FFFFFF;
+  --color-Red:#FF3333;
+
+
+
+  /* fonts */
+  --font-integral: "IntegralCF", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+@font-face {
+  font-family: "IntegralCF";
+  src: url("/fonts/IntegralCF-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
