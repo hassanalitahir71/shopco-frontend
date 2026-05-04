@@ -2,9 +2,11 @@
 
 @import "tailwindcss";
 
-.logoSwiper .swiper-wrapper {
-  transition-timing-function: linear !important;
+a.active hr{
+  display: block;
 }
+
+
 
 @theme {
   --color-LightGray: #f0f0f0;
