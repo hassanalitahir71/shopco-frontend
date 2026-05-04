@@ -1,4 +1,4 @@
-import NavBar from "../Components/NavBar";
+
 import HeroSection from "../Components/HeroSection";
 import NewArivals from "../Components/NewArivals";
 import TopSelling from "../Components/TopSelling";
@@ -10,7 +10,7 @@ import Footer from "../Components/Footer";
 const HomePage = () => {
   return (
     <>
-      <NavBar />
+      
       <HeroSection />
       <NewArivals />
       <TopSelling />
