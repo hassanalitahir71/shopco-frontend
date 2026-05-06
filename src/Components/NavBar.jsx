@@ -35,7 +35,7 @@ function NavBar() {
 
   return (
     <div className="w-full flex justify-center relative">
-      <div className="w-[90%] flex items-center justify-between h-16">
+      <div className="w-[85%] flex items-center justify-between h-16">
         {/* Logo + Mobile Menu Button */}
         <div className="flex items-center gap-3">
           <Link to='/'>

@@ -11,6 +11,7 @@ import PlaceOrder from "./Pages/PlaceOrder";
 import Product from "./Pages/Product";
 import Orders from "./Pages/Orders";
 import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+      <Footer/>
     </>
   );
 }
