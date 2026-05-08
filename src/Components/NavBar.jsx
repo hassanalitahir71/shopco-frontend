@@ -4,12 +4,18 @@ import { FiShoppingCart } from "react-icons/fi";
 import { GoSearch } from "react-icons/go";
 import { MdMenu, MdClose } from "react-icons/md";
 import { NavLink, Link } from "react-router-dom";
+import { useContext } from "react";
+import { ShopContext } from "../Context/ShopContext";
+
+
 
 function NavBar() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
   const profileRef = useRef(null);
+
+  const { searchTerm, setSearchTerm } = useContext(ShopContext);
 
   //  Close dropdown when clicking outside
   useEffect(() => {
@@ -38,8 +44,7 @@ function NavBar() {
       <div className="w-[85%] flex items-center justify-between h-16">
         {/* Logo + Mobile Menu Button */}
         <div className="flex items-center gap-3">
-          <Link to='/'>
-            
+          <Link to="/">
             <img
               src="/img/SHOP.CO.png"
               alt="logo"
@@ -73,6 +78,8 @@ function NavBar() {
         <div className="hidden md:block relative w-64 lg:w-80">
           <input
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search for products..."
             className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none text-sm"
           />
@@ -134,6 +141,8 @@ function NavBar() {
           <div className="p-4 pt-0">
             <div className="relative">
               <input
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 type="text"
                 placeholder="Search..."
                 className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none"

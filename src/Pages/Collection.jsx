@@ -4,29 +4,115 @@ import { ShopContext } from "../Context/ShopContext";
 import ProductItem from "../Components/ProductItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  // Context
+  const { products, searchTerm } = useContext(ShopContext);
 
+  // States
   const [FilterProducts, setfilterProducts] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [catagory, setcatagory] = useState([]);
+  const [subcatagory, setsubcatagory] = useState([]);
+const [sortType, setSortType] = useState("");
+
   const productsPerPage = 20;
 
+  // Toggle Category
+  const togglecatagory = (e) => {
+    if (catagory.includes(e.target.value)) {
+      setcatagory((prev) => prev.filter((item) => item !== e.target.value));
+    } else {
+      setcatagory((prev) => [...prev, e.target.value]);
+    }
+  };
+
+  // Toggle Sub Category
+  const ToggleSubCatagory = (e) => {
+    if (subcatagory.includes(e.target.value)) {
+      setsubcatagory((prev) => prev.filter((item) => item !== e.target.value));
+    } else {
+      setsubcatagory((prev) => [...prev, e.target.value]);
+    }
+  };
+
+  // Apply Filters
+  const ApplyFunction = () => {
+    let productCopy = products.slice();
+
+    // Category Filter
+    if (catagory.length > 0) {
+      productCopy = productCopy.filter((item) =>
+        catagory.includes(item.category),
+      );
+    }
+      //  search logic
+     if (searchTerm.trim() !== "") {
+       productCopy = productCopy.filter((item) =>
+         item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+       );
+     }
+
+    // Sub Category Filter
+    if (subcatagory.length > 0) {
+      productCopy = productCopy.filter((item) =>
+        subcatagory.includes(item.subCategory),
+      );
+    }
+
+    setfilterProducts(productCopy);
+  };
+
+  // Initial Products Load
   useEffect(() => {
     setfilterProducts(products);
     setCurrentPage(1);
   }, [products]);
 
+  // Apply Filters When State Changes
+  useEffect(() => {
+    ApplyFunction();
+  }, [catagory, subcatagory, searchTerm]);
+
   // Pagination Logic
   const indexOfLastProduct = currentPage * productsPerPage;
+
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
   const currentProducts = FilterProducts.slice(
     indexOfFirstProduct,
-    indexOfLastProduct
+    indexOfLastProduct,
   );
 
   const totalPages = Math.ceil(FilterProducts.length / productsPerPage);
+
+  // prices logic
+
+  const sortProduct =()=>{
+
+    let fpCopy = FilterProducts.slice();
+
+    switch (sortType) {
+      case "low-high":
+        setfilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        break;
+
+      case "high-low":
+        setfilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+        break;
+
+      default:
+        ApplyFunction();
+        break;
+        
+    }
+
+
+  }
+  useEffect(()=>{
+sortProduct();
+
+  },[sortType])
 
   return (
     <div className="w-full flex justify-center mt-10 mb-10">
@@ -41,79 +127,93 @@ const Collection = () => {
 
         {/* Filters */}
         <div
-          className={`${
-            showFilters ? "flex" : "hidden"
-          } lg:flex w-full lg:w-[20%] gap-2 flex-col`}
+          className={`${showFilters ? "flex" : "hidden"}
+          lg:flex w-full lg:w-[20%] gap-2 flex-col`}
         >
           <p className="font-integral text-lg pl-1 font-bold">FILTERS</p>
 
+          {/* Categories */}
           <div className="p-3 flex flex-col border-gray-400 border gap-1 font-integral text-sm">
             <p>CATAGORIES</p>
 
             <label>
               <input
+                onChange={togglecatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="men"
+                value="Men"
               />
               Men
             </label>
+
             <label>
               <input
+                onChange={togglecatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="women"
+                value="Women"
               />
               Women
             </label>
+
             <label>
               <input
+                onChange={togglecatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="kid"
+                value="Kids"
               />
               Kids
             </label>
           </div>
 
+          {/* Type */}
           <div className="p-3 flex flex-col border-gray-400 border gap-1 font-integral text-sm">
             <p>TYPE</p>
 
             <label>
               <input
+                onChange={ToggleSubCatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="Top wear"
+                value="Topwear"
               />
               Top Wear
             </label>
+
             <label>
               <input
+                onChange={ToggleSubCatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="bottom wear"
+                value="Bottomwear"
               />
               Bottom Wear
             </label>
+
             <label>
               <input
+                onChange={ToggleSubCatagory}
                 className="text-gray-600 mr-2"
                 type="checkbox"
-                value="winter wear"
+                value="Winterwear"
               />
               Winter Wear
             </label>
           </div>
         </div>
 
-        {/* Right section */}
+        {/* Right Section */}
         <div className="flex flex-col w-full lg:w-[80%] gap-6">
+          {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <Title text="COLLECTION" />
 
-            <select className="w-full sm:w-auto p-1 pl-2 pr-8 text-sm border border-gray-500 text-gray-500 rounded-md bg-white">
+            <select onChange={ (e) => setSortType(e.target.value)} className="w-full sm:w-auto p-1 pl-2 pr-8 text-sm border border-gray-500 text-gray-500 rounded-md bg-white">
               <option value="relevant">Sorted by: Relevant</option>
+
               <option value="low-high">Sorted by: Low to High</option>
+
               <option value="high-low">Sorted by: High to Low</option>
             </select>
           </div>
@@ -148,6 +248,7 @@ const Collection = () => {
             {/* Page Numbers */}
             {[...Array(totalPages)].map((_, index) => {
               const page = index + 1;
+
               return (
                 <button
                   key={page}
