@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap'); 
+
 @import "tailwindcss";
 
 a.active hr{
@@ -7,19 +9,31 @@ a.active hr{
 }
 
 
+.aboutSwiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.aboutSwiper {
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
+}
+
 
 @theme {
   --color-LightGray: #f0f0f0;
   --color-secondary: #F59E0B;
   --color-black1: #000000;
   --color-white1: #FFFFFF;
-  --color-Red:#FF3333;
-
-
+  --color-Red: #FF3333;
 
   /* fonts */
   --font-integral: "IntegralCF", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  /* Add this line */
 }
 @font-face {
   font-family: "IntegralCF";

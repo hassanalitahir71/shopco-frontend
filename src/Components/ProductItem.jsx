@@ -20,8 +20,8 @@ const ProductItem = ({
     
     <Link to={`/Product/${id}`} className="flex flex-col w-full">
       {/* Image Container */}
-      <div className="w-full h-full  bg-[#f0eeed] rounded-2xl hover:scale-110 transition ease-in-out overflow-hidden mb-2 md:mb-3 aspect-square flex items-center  justify-center">
-        <img src={image} alt={name} className="w-full h-full " />
+      <div className="w-full h-full  bg-[#f0eeed]  hover:scale-110 transition ease-in-out overflow-hidden mb-2 md:mb-3 aspect-square flex items-center  justify-center">
+        <img src={image[0]} alt={name} className="w-full h-full " />
       </div>
 
       {/* Card Info */}
