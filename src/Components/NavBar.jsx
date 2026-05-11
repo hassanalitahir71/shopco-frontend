@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
 import { GoSearch } from "react-icons/go";
 import { MdMenu, MdClose } from "react-icons/md";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { ShopContext } from "../Context/ShopContext";
 
@@ -31,6 +31,11 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
+   const location = useLocation(); 
+
+   const showSearch = location.pathname.includes("/collection");
 
   const navLinks = [
     { name: "HOME", path: "/" },
@@ -74,17 +79,18 @@ function NavBar() {
           ))}
         </ul>
 
-        {/* Search */}
-        <div className="hidden md:block relative w-64 lg:w-80">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for products..."
-            className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none text-sm"
-          />
-          <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-lg" />
-        </div>
+        {showSearch && (
+          <div className="hidden md:block relative w-64 lg:w-80">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for products..."
+              className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none text-sm"
+            />
+            <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-lg" />
+          </div>
+        )}
 
         {/* Icons */}
         <div className="flex items-center gap-4 text-xl">
@@ -138,18 +144,20 @@ function NavBar() {
           </ul>
 
           {/* Mobile Search */}
-          <div className="p-4 pt-0">
-            <div className="relative">
-              <input
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none"
-              />
-              <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
+          {showSearch && (
+            <div className="p-4 pt-0">
+              <div className="relative">
+                <input
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 outline-none"
+                />
+                <GoSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
