@@ -119,7 +119,7 @@ export const products = [
         originalPrice: 285,
         discount: 30,
         rating: 5.0,
-        image: [p_img2_1],
+        image: [p_img2_1,p_img2_2,p_img2_3,p_img2_4],
         category: "Men",
         subCategory: "Topwear",
         sizes: ["M", "L", "XL"],
